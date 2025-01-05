@@ -29,6 +29,24 @@ task('config:check', function() {
     if ( !has('name') ) {
         throw new ConfigurationException('Please define a name.');
     }
+    if ( !has('display_name') ) {
+        throw new ConfigurationException('Please define a display name.');
+    }
+    if ( !has('repository') ) {
+        throw new ConfigurationException('Please define a repository.');
+    }
+    if ( !has('path_to_wp_root') ) {
+        throw new ConfigurationException('Please define the path to WP root.');
+    }
+    if ( !has('public_url') ) {
+        throw new ConfigurationException('Please define a public URL.');
+    }
+    if ( !has('theme_name') ) {
+        throw new ConfigurationException('Please define a theme name.');
+    }
+    if ( !has('wordpress') ) {
+        throw new ConfigurationException('Please define a wordpress variables.');
+    }
 })->desc('Checks if all the configuration is set.');
 
 /**
@@ -125,19 +143,17 @@ task('setup:deployer', function() {
     $deployer_yaml['config']['notifications']['enabled'] = false;
     file_put_contents('deploy-config.yaml', Yaml::dump($deployer_yaml, 4));
 
-    warning("Please edit your hosts and hangouts webhook on deploy-config.yaml.");
+    warning("Please add your hosts and add the hangouts webhook on deploy-config.yaml.");
     
-
-    // TODO
-    # run('mv ./tmp/deployer-start-master/deploy.php ./deploy.php');
 
 })->desc('Sets up deployer.');
 
 task('setup:cleanup', function() {
-    // TODO
+    run('rm -rf ./helper-files');
+    run('mv ./tmp/deployer-start-master/deploy.php ./deploy.php');
+    run('rm -rf ./tmp');
+    run('rm ./setup.yaml');
 })->desc('Cleans up left over files.');
-
-//TODO - Remove this file for deployer.
 
 /**
  * Set up stuff
