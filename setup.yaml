@@ -1,0 +1,17 @@
+config:
+  name: "wordpress-start"
+  display_name: "Hugo Silva - FullStack Freelancer"
+  repository: git@github.com:raramente/deployer-start.git
+  path_to_wp_root: site
+  public_url: "http://{{name}}.lndo.site"
+  theme_name: "{{name}}"
+  wordpress:
+    db_name: wordpress
+    db_user: wordpress
+    db_password: wordpress
+    db_host: database
+    db_prefix: wp_
+    admin_email: hugo@hugosilva.me
+    admin_user: hugo.silva
+    admin_password: secret
+    locale: en_US
