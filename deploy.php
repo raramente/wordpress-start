@@ -187,6 +187,7 @@ task('setup', [
     'setup:install-theme',
     'setup:load-gitignore',
     'setup:plugins',
+    'setup:deployer',
     'setup:cleanup'
 ])->desc('Sets up everything on local environment.');
 
