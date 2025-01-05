@@ -150,8 +150,7 @@ task('setup:deployer', function() {
 
 task('setup:cleanup', function() {
     run('rm -rf ./helper-files');
-    run('mv ./tmp/deployer-start-master/deploy.php ./deploy.php');
-    run('rm -rf ./tmp');
+    run('mv ./tmp/deployer-start-master/deploy.php ./deploy.php && rm -rf ./tmp');
     run('rm ./setup.yaml');
 })->desc('Cleans up left over files.');
 
