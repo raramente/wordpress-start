@@ -132,6 +132,7 @@ task('setup:deployer', function() {
 
     // Move lando files
     run('mv ./tmp/deployer-start-master/deploy-config.yaml ./deploy-config.yaml');
+    run('mv ./tmp/deployer-start-master/deploy.php ./deploy-tmp.php && rm -rf ./tmp');
 
     // Create the .lando.yml file
     $deployer_yaml = Yaml::parse(file_get_contents('deploy-config.yaml'));
@@ -150,7 +151,7 @@ task('setup:deployer', function() {
 
 task('setup:cleanup', function() {
     run('rm -rf ./helper-files');
-    run('mv ./tmp/deployer-start-master/deploy.php ./deploy.php && rm -rf ./tmp');
+    run('mv ./deploy-tmp.php ./deploy.php');
     run('rm ./setup.yaml');
 })->desc('Cleans up left over files.');
 
