@@ -32,6 +32,8 @@ This project uses two other projects in order to set up, install and deploy Word
 
 What this project does is to download and configure each one of the projects from github make them work toghether so all the tools are there for the developer.
 
+It also runs through the plugin list and installs / downloads each one for the project.
+
 ## Tools available
 
 ```bash

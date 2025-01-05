@@ -15,3 +15,7 @@ config:
     admin_user: hugo.silva
     admin_password: secret
     locale: en_US
+  plugins:
+    - composer: "wpackagist-plugin/contact-form-7"
+    - composer: "wpackagist-plugin/all-in-one-seo-pack"
+    - github: https://github.com/raramente/hugosilva-bootstrap

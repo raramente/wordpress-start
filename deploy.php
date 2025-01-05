@@ -154,6 +154,27 @@ task('setup:cleanup', function() {
     run('rm ./setup.yaml');
 })->desc('Cleans up left over files.');
 
+task('setup:plugins', function() {
+    $plugins = get('plugins');
+    foreach ($plugins as $plugin) {
+        foreach ($plugin as $type => $value) {
+            if ( $type === 'composer' ) {
+                run('lando composer require "' . $value . '"');
+            } elseif ( $type === 'github' ) {
+                $githubUrl = parseGithubUrl( $value );
+                run('wget https://github.com/' . $githubUrl['author'] . '/' . $githubUrl['repo'] . '/archive/master.tar.gz');
+                run('mkdir -p ./tmp');
+                run('tar -zxvf master.tar.gz -C ./tmp');
+                run('rm master.tar.gz');
+                run('cp -r ./tmp/' . $githubUrl['repo'] . '-master/ ./{{path_to_wp_root}}/web/app/plugins/' . $githubUrl['repo'] . '/');
+                run('rm -r ./tmp');
+            } else {
+                warning("Plugin type: " . $type . " not supported.");
+            }
+        }
+    }
+})->desc('Installs plugins based on the config provided.');
+
 /**
  * Set up stuff
  */
@@ -164,6 +185,7 @@ task('setup', [
     'setup:intall-wp',
     'setup:install-theme',
     'setup:load-gitignore',
+    'setup:plugins',
     'setup:cleanup'
 ])->desc('Sets up everything on local environment.');
 
@@ -180,4 +202,9 @@ function generateRandomString($length = 10) {
     }
 
     return $randomString;
+}
+
+function parseGithubUrl($url) {
+    $a = explode('/', $url);
+    return [ 'author' => $a[3], 'repo' => $a[4] ];
 }
