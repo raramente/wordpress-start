@@ -23,7 +23,7 @@ localhost('local');
 
 
 /**
- * Config tasks //TODO
+ * Config tasks
  */
 task('config:check', function() {
     if ( !has('name') ) {
